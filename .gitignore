@@ -48,3 +48,4 @@ public/build/
 # Other
 public/static/
 .vercel
+vercel.json
