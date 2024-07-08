@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.IO Test</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Socket.IO Test</h1>
+  <input type="text" id="roomId" placeholder="Room ID">
+  <input type="text" id="userName" placeholder="User Name">
+  <button id="joinRoom">Join Room</button>
+  <button id="leaveRoom" style="display:none;">Leave Room</button>
+
+  <div id="chat" style="display:none;">
+    <input type="text" id="message" placeholder="Message">
+    <button id="sendMessage">Send Message</button>
+    <ul id="messages"></ul>
+  </div>
+
+  <script>
+    const socket = io();
+
+    document.getElementById('joinRoom').addEventListener('click', () => {
+      const roomId = document.getElementById('roomId').value;
+      const userName = document.getElementById('userName').value;
+      socket.emit('join-room', { roomId, userName });
+
+      document.getElementById('chat').style.display = 'block';
+      document.getElementById('leaveRoom').style.display = 'block';
+    });
+
+    document.getElementById('leaveRoom').addEventListener('click', () => {
+      const roomId = document.getElementById('roomId').value;
+      socket.emit('leave-room', { roomId });
+
+      document.getElementById('chat').style.display = 'none';
+      document.getElementById('leaveRoom').style.display = 'none';
+      document.getElementById('messages').innerHTML = ''; // Clear messages
+    });
+
+    document.getElementById('sendMessage').addEventListener('click', () => {
+      const roomId = document.getElementById('roomId').value;
+      const message = document.getElementById('message').value;
+      socket.emit('send-message', { roomId, message });
+    });
+
+    socket.on('user-joined', ({ userId, userName }) => {
+      const li = document.createElement('li');
+      li.textContent = `${userName} (ID: ${userId}) joined the room`;
+      document.getElementById('messages').appendChild(li);
+    });
+
+    socket.on('receive-message', (message) => {
+      const li = document.createElement('li');
+      li.textContent = message;
+      document.getElementById('messages').appendChild(li);
+    });
+
+    socket.on('user-left', (userId) => {
+      const li = document.createElement('li');
+      li.textContent = `User (ID: ${userId}) left the room`;
+      document.getElementById('messages').appendChild(li);
+    });
+  </script>
+</body>
+</html>
