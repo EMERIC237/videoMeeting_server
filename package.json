@@ -4,6 +4,8 @@
   "description": "this will host the socket server for video meeting",
   "main": "server.js",
   "dependencies": {
+    "@socket.io/cluster-adapter": "^0.2.2",
+    "@socket.io/sticky": "^1.0.4",
     "accepts": "^1.3.8",
     "array-flatten": "^1.1.1",
     "body-parser": "^1.20.2",
