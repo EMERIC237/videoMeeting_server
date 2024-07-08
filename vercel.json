@@ -8,12 +8,20 @@
         {
             "src": "public/index.html",
             "use": "@vercel/static"
+        },
+        {
+            "src": "public/test.html",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/socket.io/(.*)",
             "dest": "/server.js"
+        },
+        {
+            "src": "/test",
+            "dest": "/public/test.html"
         },
         {
             "src": "/(.*)",

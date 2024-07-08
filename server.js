@@ -5,12 +5,20 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+
+const io = socketIo(server, {
+  cors: {
+    origin: ['http://localhost:3000', 'https://your-frontend-domain.web.app', 'https://video-meeting-server-three.vercel.app'],
+    methods: ['GET', 'POST']
+  }
+});
 
 const PORT = process.env.PORT || 4000;
 
 // Enable CORS for all origins
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://your-frontend-domain.web.app', 'https://video-meeting-server-three.vercel.app']
+}));
 
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
