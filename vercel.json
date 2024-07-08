@@ -1,31 +1,32 @@
 {
     "version": 2,
     "builds": [
-        {
-            "src": "server.js",
-            "use": "@vercel/node"
-        },
-        {
-            "src": "public/index.html",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "public/test.html",
-            "use": "@vercel/static"
-        }
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "public/index.html",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "public/test.html",
+        "use": "@vercel/static"
+      }
     ],
     "routes": [
-        {
-            "src": "/socket.io/(.*)",
-            "dest": "/server.js"
-        },
-        {
-            "src": "/test",
-            "dest": "/public/test.html"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/public/$1"
-        }
+      {
+        "src": "/socket.io/(.*)",
+        "dest": "/server.js"
+      },
+      {
+        "src": "/test",
+        "dest": "/public/test.html"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/public/$1"
+      }
     ]
-}
+  }
+  
