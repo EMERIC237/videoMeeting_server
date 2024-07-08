@@ -47,3 +47,4 @@ public/build/
 
 # Other
 public/static/
+.vercel
